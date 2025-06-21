@@ -2,7 +2,7 @@ import "./App.css";
 import TasksList from "./Tasks/Tasks";
 import Navbar from "./Shared/Navbar";
 
-function App() {
+function Home() {
   return (
     <>
       <Navbar />
@@ -13,4 +13,4 @@ function App() {
   );
 }
 
-export default App;
+export default Home;
