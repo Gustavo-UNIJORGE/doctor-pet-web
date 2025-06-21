@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 function IndexTask() {
   return (
     <>
+      <title>Serviços</title>
       <h2>Serviços</h2>
       <ul>
         <li>

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import api from "@/api/service";
-import { type Task } from "@/api/models";
+import { type Task, type TaskForm } from "@/api/models";
 
 function CreateTask() {
-  const [form, setForm] = useState<Task>({
+  const [form, setForm] = useState<TaskForm>({
     title: "",
     slug: "",
     specialty: "",
@@ -24,7 +24,7 @@ function CreateTask() {
     e.preventDefault();
 
     try {
-      const response = await api.createTask(form);
+      const response = await api.createTask(form as Task);
 
       setForm({
         title: "",
@@ -62,6 +62,7 @@ function CreateTask() {
 
   return (
     <>
+      <title>Criar - Serviços</title>
       <div className="main-content">
         <h2>Adicionar Serviço</h2>
         <form method="POST" onSubmit={handleSubmit}>

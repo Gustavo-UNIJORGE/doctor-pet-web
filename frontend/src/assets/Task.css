@@ -54,3 +54,21 @@ form>fieldset.form-group>.form-row {
 form>fieldset.form-group>.form-row>*:last-child {
     margin-left: auto;
 }
+
+table.list-table-view {
+    width: 100%;
+}
+
+table.list-table-view tbody td {
+    text-align: center;
+}
+
+table.list-table-view input { 
+    padding: 0.3em;
+}
+
+table.list-table-view input:disabled{ 
+    color: white;
+    background-color: transparent;
+    border: solid 1px transparent;
+}
