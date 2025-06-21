@@ -1,12 +1,11 @@
 import "./App.css";
 import TasksList from "./Tasks/Tasks";
+import Navbar from "./Shared/Navbar";
 
 function App() {
   return (
     <>
-      <header>
-        <h1>doctor-pet-app</h1>
-      </header>
+      <Navbar />
       <main>
         <TasksList />
       </main>
