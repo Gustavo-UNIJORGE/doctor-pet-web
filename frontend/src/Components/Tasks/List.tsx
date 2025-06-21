@@ -27,6 +27,7 @@ function ListTask() {
     const loadData = async () => {
       try {
         const data = await api.getTasks();
+        console.log(data);
         setTasks(data);
       } catch (error) {
         console.error("Erro fetching data: ", error);

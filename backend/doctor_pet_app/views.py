@@ -8,14 +8,14 @@ def index (request: HttpRequest) -> HttpResponse:
     return HttpResponse('home')
 
 def tasks(request: HttpRequest) -> HttpResponse:
-    data = Task.objects.all()
-    response = [
+    response = Task.objects.all()
+    data = [
         {
             **item['fields'],
             'id': item['pk']
-        } for item in serialize('python', data)
+        } for item in serialize('python', response)
     ]
-    return JsonResponse(response, safe=False)
+    return JsonResponse(data, safe=False)
 
 def task_details(request: HttpRequest, task_id: int):
     modelname = 'Task'

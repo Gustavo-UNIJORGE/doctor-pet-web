@@ -33,6 +33,12 @@ const instance = axios.create({
 const api = {
   getTasks: async () => {
     const response = await instance.get("/task/");
+
+    
+    return response.data;
+  },
+  findTask: async (id: number) => {
+    const response = await instance.get(`/task:${id}/`)
     return response.data;
   },
   createTask: async (data: Task) => {
