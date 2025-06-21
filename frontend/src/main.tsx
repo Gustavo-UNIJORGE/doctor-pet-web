@@ -1,11 +1,11 @@
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "./index.css";
-import PageLayout from "./PageLayout.tsx";
-import NotFound from "./Shared/NotFound.tsx";
-import IndexTask from "./Tasks/Index.tsx";
-import CreateTask from "./Tasks/Create.tsx";
-import Home from "./Shared/Home.tsx";
+import "@assets/index.css";
+import PageLayout from "@Layouts/PageLayout";
+import NotFound from "@Shared/NotFound";
+import IndexTask from "@Tasks/Index";
+import CreateTask from "@Tasks/Create";
+import Home from "@Shared/Home";
 
 const root = document.getElementById("root");
 

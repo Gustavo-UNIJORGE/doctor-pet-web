@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import path from "path";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -13,6 +14,16 @@ export default defineConfig({
         secure: false,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
+    },
+  },
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+      "@assets": path.resolve(__dirname, "./src/assets"),
+      "@components": path.resolve(__dirname, "./src/Components"),
+      "@Layouts": path.resolve(__dirname, "./src/Components/Layouts"),
+      "@Shared": path.resolve(__dirname, "./src/Components/Shared"),
+      "@Tasks": path.resolve(__dirname, "./src/Components/Tasks"),
     },
   },
 });

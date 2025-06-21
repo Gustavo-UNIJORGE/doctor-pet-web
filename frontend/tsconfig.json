@@ -3,5 +3,17 @@
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
-  ]
+  ],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@Assets/*": ["./src/assets/*"],
+      "@Components/*": ["./src/Components/*"],
+      "@Layouts/*": ["./src/Components/Layouts/*"],
+      "@Shared/*": ["./src/Components/Shared/*"],
+      "@Tasks/*": ["./src/Components/Tasks/*"],
+    },
+    "types": ["node"]
+  }
 }

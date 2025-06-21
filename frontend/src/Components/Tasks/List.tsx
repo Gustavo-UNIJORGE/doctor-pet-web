@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchService } from "../api/service";
+import { fetchService } from "../../api/service";
 
 interface Task {
   id: number;
