@@ -89,5 +89,5 @@ class Attendance(models.Model):
         return self.estimated_end_time > timedelta(days=1)
         # return self.start_time.combine(date=self.start_date, time=self.time_span) > datetime.timedelta(days=1)
 
-    def __str__(self) -> str:
-        return self.task + ' - ' + self.worker_responsible
+    def __str__(self):
+        return f"{self.task.__str__()} ({str(self.pk)})"; 
