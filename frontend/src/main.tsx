@@ -14,7 +14,8 @@ ReactDOM.createRoot(root!).render(
     <Routes>
       <Route path="" element={<PageLayout />}>
         <Route index element={<Home />} />
-        <Route path="task" element={<IndexTask />}>
+        <Route path="task">
+          <Route index element={<IndexTask />} />
           <Route path="create" element={<CreateTask />} />
           <Route path=":taskId/details" element={<CreateTask />} />
           <Route path=":taskId/edit" element={<CreateTask />} />
