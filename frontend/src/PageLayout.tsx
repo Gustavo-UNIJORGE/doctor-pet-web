@@ -1,16 +1,16 @@
+import { Outlet } from "react-router-dom";
 import "./App.css";
-import TasksList from "./Tasks/Tasks";
 import Navbar from "./Shared/Navbar";
 
-function Home() {
+function PageLayout() {
   return (
     <>
       <Navbar />
       <main>
-        <TasksList />
+        <Outlet />
       </main>
     </>
   );
 }
 
-export default Home;
+export default PageLayout;

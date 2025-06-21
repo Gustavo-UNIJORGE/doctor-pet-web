@@ -10,7 +10,7 @@ interface Task {
   is_it_home: boolean;
 }
 
-function TasksList() {
+function ListTask() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -32,8 +32,7 @@ function TasksList() {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <>
-      <h2>Tasks</h2>
+    <table>
       <thead>
         <tr>
           <th>ID</th>
@@ -50,8 +49,8 @@ function TasksList() {
           </tr>
         ))}
       </tbody>
-    </>
+    </table>
   );
 }
 
-export default TasksList;
+export default ListTask;

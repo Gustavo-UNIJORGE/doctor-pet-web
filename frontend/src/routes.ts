@@ -4,12 +4,14 @@ const ROUTES = {
     LOGIN: "login",
     REGISTER: "register",
     PROFILE: "profile",
-    USERS: 'users'
+    USERS: "users",
   },
   TASKS: {
     LIST: "task",
-    DETAIL: "task/:id",
     CREATE: "task/create",
+    DETAIL: "task/:id",
+    EDIT: "task/:id/edit",
+    DELETE: "task/:id/delete",
   },
   ATTENDANCES: "attendance",
 };
