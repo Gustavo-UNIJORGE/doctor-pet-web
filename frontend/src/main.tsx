@@ -17,7 +17,7 @@ ReactDOM.createRoot(root!).render(
         <Route path="task">
           <Route index element={<IndexTask />} />
           <Route path="create" element={<CreateTask />} />
-          <Route path=":id/details" element={<DetailsTask />} />
+          <Route path=":id" element={<DetailsTask />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Route>

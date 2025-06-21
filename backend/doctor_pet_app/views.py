@@ -1,35 +1,44 @@
 import json
 from .models import *
+from .serializer import *
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse, HttpResponse, HttpRequest
 from django.core.serializers import serialize
 
+modelname = 'Task'
+
 def index (request: HttpRequest) -> HttpResponse:
     return HttpResponse('home')
 
-def tasks(request: HttpRequest) -> HttpResponse:
-    response = Task.objects.all()
-    data = [
+def all_tasks(request: HttpRequest) -> HttpResponse:
+    objects = serialize('python', Task.objects.all())
+
+    response = [
         {
             **item['fields'],
             'id': item['pk']
-        } for item in serialize('python', response)
-    ]
-    return JsonResponse(data, safe=False)
+        } for item in objects
+    ] 
 
-def task_details(request: HttpRequest, task_id: int):
-    modelname = 'Task'
+    return JsonResponse(response, safe=False)
+
+def get_task(request: HttpRequest, task_id: int):
     try :
-        response = Task.objects.get(pk=task_id)
+        response : Task = Task.objects.get(pk=task_id) 
         data = {
             'id': response.pk,
             'title' : response.title,
             'slug' : response.slug,
-            'specialty': response.specialty
+            'specialty': response.specialty,
+            'estimated_time': response.estimated_time,
+            'is_it_home': response.is_it_home
+
         }
-        return JsonResponse({'data': data})
+        return JsonResponse(data)
     except Task.DoesNotExist:
-        return JsonResponse({'error': f'{modelname} não encontrado'}, status=404)
+        return Response(exception=f'{modelname} não encontrado', status=404)
 
 def task_attendances(request: HttpRequest, task_id: int):
     try :
@@ -46,7 +55,7 @@ def task_attendances(request: HttpRequest, task_id: int):
         return JsonResponse({'error': str(e)}, status=500)
 
 @csrf_exempt
-def task_create(request: HttpRequest) -> JsonResponse: 
+def create_task(request: HttpRequest) -> JsonResponse: 
     if request.method == 'POST':
         try: 
             body = json.loads(request.body)
@@ -71,3 +80,10 @@ def task_create(request: HttpRequest) -> JsonResponse:
         except Exception as e:
             return JsonResponse({'status': 'error', 'error': str(e)}, status=400)
     return JsonResponse({'status': 'error'}, status=405)
+
+def update_task(request: HttpRequest, pk: int):
+    try: 
+        task = Task.objects.get(pk=pk)
+    except Task.DoesNotExist:
+        return Response(exception=f'{modelname} não encontrado', status=404)
+    
