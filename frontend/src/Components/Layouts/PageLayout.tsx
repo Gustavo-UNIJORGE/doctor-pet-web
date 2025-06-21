@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-// import "./App.css";
-import "@assets/App.css";
+import "@Assets/App.css";
+import "@Assets/index.css";
 import Navbar from "@Shared/Navbar";
 
 function PageLayout() {

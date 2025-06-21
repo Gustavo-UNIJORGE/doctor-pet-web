@@ -1,6 +1,5 @@
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "@assets/index.css";
 import PageLayout from "@Layouts/PageLayout";
 import NotFound from "@Shared/NotFound";
 import IndexTask from "@Tasks/Index";

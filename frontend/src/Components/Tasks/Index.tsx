@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
+import "@Assets/Task.css";
 import ListTask from "./List";
 import ROUTES from "../../routes";
+import { Link } from "react-router-dom";
 
 function IndexTask() {
   return (

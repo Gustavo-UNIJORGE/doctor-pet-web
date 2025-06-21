@@ -1,3 +1,4 @@
+
 function CreateTask() {
   return (
     <>
@@ -24,6 +25,10 @@ function CreateTask() {
           <label>É a Domicílio</label>
           <input type="checkbox" />
         </fieldset>
+        <div>
+          <button type="reset">Cancelar</button>
+          <button type="submit">Salvar</button>
+        </div>
       </form>
     </>
   );
