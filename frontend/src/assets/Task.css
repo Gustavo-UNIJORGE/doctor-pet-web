@@ -1,4 +1,56 @@
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 2em;
+}
+main>.main-content {
+    margin: 0 2.5em;
+    border: solid grey 1px;
+    padding: 0 2.5em;
+    padding-bottom: 3em;
+    border-radius: 32px;
+    max-width: 640px;
+}
 form {
     display: flex;
-    margin: auto;
+    flex-flow: column wrap;
+    align-content: center;
+}
+
+form>*:last-child {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1em;
+}
+form>fieldset.form-group{
+    display: flex;
+    flex-direction: column;
+    border: none;
+    border-bottom: solid grey 1px;
+}
+form>fieldset.form-group label, 
+form>fieldset.form-group input{
+    padding: 0.25em 0;
+    font-size: 1.2rem;
+
+}
+form>fieldset.form-group input {
+    padding:  0.5em;
+    border: solid grey 1px;
+    border-radius: 8px;
+}
+form>fieldset.form-group input:disabled {
+    border: none;
+    border-radius: 16px;
+}
+
+form>fieldset.form-group>.form-row {
+    display: flex;
+    align-items: center;
+    gap: 0.2em
+}
+
+form>fieldset.form-group>.form-row>*:last-child {
+    margin-left: auto;
 }

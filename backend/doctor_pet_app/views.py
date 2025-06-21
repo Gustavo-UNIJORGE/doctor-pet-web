@@ -1,6 +1,6 @@
 import json
 from .models import *
-from django.views.csrf import csrf_failure
+from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse, HttpResponse, HttpRequest
 from django.core.serializers import serialize
 
@@ -45,8 +45,29 @@ def task_attendances(request: HttpRequest, task_id: int):
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
 
+@csrf_exempt
+def task_create(request: HttpRequest) -> JsonResponse: 
+    if request.method == 'POST':
+        try: 
+            body = json.loads(request.body)
+            task = Task.objects.create(
+                title=body.get('title'),
+                slug=body.get('slug'),
+                specialty=body.get('specialty'),
+                estimated_time=body.get('estimated_time'),
+                is_it_home=body.get('is_it_home', False)
+            )
+            
+            data = {
+                'title': task.title,
+                'slug': task.slug,
+                'specialty': task.specialty,
+                'estimated_time': task.estimated_time,
+                'is_it_home': task.is_it_home
+            }
 
-# def create_attendance(request: HttpRequest, task_id: int):
-#     response = 'Creating attendance for Task %s'
-#     return HttpResponse(response)
-
+            return JsonResponse({'status': 'success', 'data': data})
+            
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'error': str(e)}, status=400)
+    return JsonResponse({'status': 'error'}, status=405)

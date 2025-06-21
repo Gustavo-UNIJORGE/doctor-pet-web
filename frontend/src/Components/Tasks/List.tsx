@@ -1,14 +1,7 @@
 import { useEffect, useState } from "react";
-import { fetchService } from "../../api/service";
+import api from "@/api/service";
+import type { Task } from "@/api/models";
 
-interface Task {
-  id: number;
-  title: string;
-  slug: string;
-  specialty: string;
-  estimated_time: string;
-  is_it_home: boolean;
-}
 
 function ListTask() {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -17,7 +10,7 @@ function ListTask() {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const data = await fetchService.getTasks();
+        const data = await api.getTasks();
         setTasks(data);
       } catch (error) {
         console.error("Erro fetching data: ", error);
