@@ -6,6 +6,7 @@ import IndexTask from "@Tasks/Index";
 import CreateTask from "@Tasks/Create";
 import Home from "@Shared/Home";
 import DetailsTask from "./Components/Tasks/Details";
+import EditTask from "./Components/Tasks/Edit";
 
 const root = document.getElementById("root");
 
@@ -18,6 +19,7 @@ ReactDOM.createRoot(root!).render(
           <Route index element={<IndexTask />} />
           <Route path="create" element={<CreateTask />} />
           <Route path=":id" element={<DetailsTask />} />
+          <Route path=":id/edit" element={<EditTask />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Route>

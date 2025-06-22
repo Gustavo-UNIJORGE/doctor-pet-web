@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import api from "@/api/service";
 import type { Task } from "@/api/models";
-import ROUTES from "@/routes";
 import { Link } from "react-router-dom";
 import { Pencil, Trash2, View, X } from "lucide-react";
+// import ROUTES from "@/routes";
 
 function ListTask() {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -17,9 +17,9 @@ function ListTask() {
     else setSelected(null);
   };
 
-  const handleDelete = (task: Task) => {
+  const handleDelete = async (task: Task) => {
     if (confirm("Você deseja mesmo remover esse Serviço da sua lista?"))
-      alert("deleted");
+      await api.updateTask(task.id, task);
     // desactive item
   };
 
@@ -27,7 +27,7 @@ function ListTask() {
     const loadData = async () => {
       try {
         const data = await api.getTasks();
-        
+
         setTasks(data);
       } catch (error) {
         console.error("Erro fetching data: ", error);
@@ -73,7 +73,7 @@ function ListTask() {
             <td>
               <div>
                 <button>
-                  <Link to={ROUTES.TASKS.DETAIL}>
+                  <Link to={`/task/${task.id}/`}>
                     <View />
                   </Link>
                 </button>

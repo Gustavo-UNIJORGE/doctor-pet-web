@@ -47,7 +47,7 @@ const api = {
     return tasks as Task[];
   },
   findTask: async (id: number) => {
-    const response = await instance.get(`/task:${id}/`);
+    const response = await instance.get(`/task/${id}/`);
     const task = toTask(response.data);
     return task;
   },
@@ -56,7 +56,7 @@ const api = {
     return response.data;
   },
   updateTask: async (id: number, data: Task) => {
-    const response = await instance.put(`/task:${id}`, data);
+    const response = await instance.put(`/task/${id}/edit`, data);
     return response.data;
   },
 };

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "@/api/service";
 import { type Task, type TaskForm } from "@/api/models";
+import slugify from "@/utils";
 
 function CreateTask() {
   const [form, setForm] = useState<TaskForm>({
@@ -43,16 +44,7 @@ function CreateTask() {
     }
   };
 
-  function slugify(title: string) {
-    return title
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "") // remove acentos
-      .replace(/[^\w\s-]/g, "") // elimina caracteres especiais
-      .replace(/\s+/g, "-") // substitui espaços por hífen "-"
-      .replace(/-+/g, "-"); // substitui múltiplos hífen por um único
-  }
-
+  
   useEffect(() => {
     setForm((prev) => ({
       ...prev,
