@@ -2,7 +2,16 @@ import { useEffect, useState } from "react";
 import api from "@/api/service";
 import type { Task } from "@/api/models";
 import { Link } from "react-router-dom";
-import { Check, Pencil, Trash2, View, X } from "lucide-react";
+import {
+  Check,
+  CircleQuestionMark as Question,
+  Pencil,
+  Plus,
+  Trash2,
+  View,
+  X,
+} from "lucide-react";
+import ROUTES from "@/routes";
 // import ROUTES from "@/routes";
 
 function ListTask() {
@@ -62,11 +71,7 @@ function ListTask() {
               <b>{task.title}</b>
             </td>
             <td>
-              {task.estimated_time
-                .split(":")
-                .join("m")
-                .replace("m", "h")
-              }
+              {task.estimated_time.split(":").join("m").replace("m", "h")}
             </td>
             <td>{task.is_it_home ? <Check /> : <X />}</td>
             <td>
@@ -88,6 +93,29 @@ function ListTask() {
             </td>
           </tr>
         ))}
+        <tr>
+          <td>
+            <Link to={ROUTES.TASKS.CREATE}>
+              <Plus />
+            </Link>
+          </td>
+          <td>
+            <Link to={ROUTES.TASKS.CREATE}>Novo Serviço</Link>
+          </td>
+          <td>
+            <Link to={ROUTES.TASKS.CREATE}>00h00m</Link>
+          </td>
+          <td>
+            <Link to={ROUTES.TASKS.CREATE}>
+              <Question />
+            </Link>
+          </td>
+          <td>
+            <Link to={ROUTES.TASKS.CREATE}>
+              <button>Adicionar Serviço</button>
+            </Link>
+          </td>
+        </tr>
       </tbody>
     </table>
   );
