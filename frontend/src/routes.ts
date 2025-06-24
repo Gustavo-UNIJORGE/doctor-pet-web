@@ -1,18 +1,13 @@
 const ROUTES = {
   HOME: "/",
-  AUTH: {
-    LOGIN: "login",
-    REGISTER: "register",
-    PROFILE: "profile",
-    USERS: "users",
-  },
   TASKS: {
-    LIST: "/task",
+    INDEX: "/task",
+    DETAILS: "/task/:id",
     CREATE: "/task/create",
-    DETAIL: "/task/:id",
     EDIT: "/task/:id/edit",
-    DELETE: "/task/:id/delete",
   },
-  ATTENDANCES: "attendance",
+  AUTH: {
+    LOGIN: "/login",
+  },
 };
 export default ROUTES;

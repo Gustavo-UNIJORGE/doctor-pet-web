@@ -12,27 +12,26 @@ import {
   X,
 } from "lucide-react";
 import ROUTES from "@/routes";
-// import ROUTES from "@/routes";
 
 function ListTask() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState<string>("")
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const [refresh, setRefresh] = useState(false);
 
   const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value)
-    if(searchQuery.length > 0) {
+    setSearchQuery(e.target.value);
+    if (searchQuery.length > 0) {
       try {
         const data = await api.searchTask(searchQuery);
-  
+
         setTasks(data);
       } catch (error) {
         console.error("Error at searching data: ", error);
         alert("Erro ao buscar registros");
       }
     }
-  }
+  };
 
   const handleDelete = async (task: Task) => {
     const text = "Você deseja mesmo remover esse Serviço da sua lista?";
@@ -72,7 +71,12 @@ function ListTask() {
       <div className="list-table-controls">
         <div className="search-control">
           <span>Buscar</span>
-          <input type="search" value={searchQuery} onChange={handleSearch} placeholder="Busque um Serviço por titulo"/>
+          <input
+            type="search"
+            value={searchQuery}
+            onChange={handleSearch}
+            placeholder="Busque um Serviço por titulo"
+          />
         </div>
         <div className="inactive-control">
           <span>Inativos</span>
@@ -102,12 +106,15 @@ function ListTask() {
               <td>{task.is_it_home ? <Check /> : <X />}</td>
               <td>
                 <div>
-                  <Link to={`/task/${task.id}/`}>
+                  {/* <Link to={`/task/${task.id}/`}> */}
+                  <Link
+                    to={ROUTES.TASKS.DETAILS.replace(":id", String(task.id))}
+                  >
                     <button>
                       <View />
                     </button>
                   </Link>
-                  <Link to={`/task/${task.id}/edit`}>
+                  <Link to={ROUTES.TASKS.EDIT.replace(":id", String(task.id))}>
                     <button /* onClick={() => handleEdit(task)} */>
                       <Pencil />
                     </button>
