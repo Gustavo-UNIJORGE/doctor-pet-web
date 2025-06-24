@@ -2,7 +2,7 @@ from django.core.serializers import serialize
 from .models import Task, Attendance
 import json
 
-def task_to_dict(task):
+def task_to_dict(task: Task):
    """Converte um objeto Task para dicionário"""
    return {
       'id': task.id,
@@ -10,10 +10,11 @@ def task_to_dict(task):
       'slug': task.slug,
       'specialty': task.specialty,
       'estimated_time': str(task.estimated_time),  # Converte time para string
-      'is_it_home': task.is_it_home
+      'is_it_home': task.is_it_home,
+      'is_active': task.is_active
    }
 
-def attendance_to_dict(attendance):
+def attendance_to_dict(attendance: Attendance):
    """Converte um objeto Attendance para dicionário"""
    return {
       'id': attendance.id,

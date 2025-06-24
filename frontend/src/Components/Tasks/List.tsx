@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "@/api/service";
 import type { Task } from "@/api/models";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { Pencil, Trash2, View, X } from "lucide-react";
 // import ROUTES from "@/routes";
 
@@ -10,6 +10,7 @@ function ListTask() {
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
   const [selected, setSelected] = useState<Task | null>(null);
+  const [refresh, setRefresh] = useState(false);
 
   const handleEdit = (task: Task) => {
     setIsEditing(!isEditing);
@@ -18,26 +19,35 @@ function ListTask() {
   };
 
   const handleDelete = async (task: Task) => {
-    if (confirm("Você deseja mesmo remover esse Serviço da sua lista?"))
-      await api.updateTask(task.id, task);
-    // desactive item
+    const text = "Você deseja mesmo remover esse Serviço da sua lista?";
+    const message = `Serviço ${task.title} desativado com sucesso`;
+    if (confirm(text)) {
+      try {
+        await api.deActiveTask(task.id, task).then(() => alert(message));
+      } catch (error) {
+        console.error("Error at deactiving data: ", error);
+        alert("Erro ao desativar o registro.");
+      } finally {
+        // Atualiza a lista de registros para o usuário
+        setRefresh(true);
+      }
+    }
   };
 
   useEffect(() => {
     const loadData = async () => {
       try {
-        const data = await api.getTasks();
-
+        const data = await api.getActiveTasks();
         setTasks(data);
       } catch (error) {
-        console.error("Erro fetching data: ", error);
+        console.error("Error at fetching data: ", error);
       } finally {
         setLoading(false);
       }
     };
 
     loadData();
-  }, []);
+  }, [refresh]);
 
   if (loading) return <div>Loading...</div>;
 
