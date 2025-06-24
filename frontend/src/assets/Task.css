@@ -55,8 +55,46 @@ form>fieldset.form-group>.form-row>*:last-child {
     margin-left: auto;
 }
 
-table.list-table-view {
+.list-view {
     width: 100%;
+
+}
+
+.list-table-controls {
+    width: inherit;
+    display: flex;
+    flex-flow: row nowrap;
+    padding: 2em 0;
+    gap: 32px;
+
+}
+
+.list-table-controls>.search-control {
+    display: flex;
+    flex-grow: 1;
+    flex-flow: row nowrap;
+}
+
+.search-control>span {
+    border: solid grey 1px;    
+    padding: 0.5em;
+    padding-right: 8px;
+    border-top-left-radius: 16px;
+    border-bottom-left-radius: 16px;
+    font-weight: 600;
+}
+
+.search-control>input {
+    flex-grow: 1;
+    border: solid grey 1px;
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
+    font-size: 1.125em;
+    padding: 0 0.5em;
+}
+
+table.list-table-view {
+    width: inherit;
 }
 
 table.list-table-view tbody td {

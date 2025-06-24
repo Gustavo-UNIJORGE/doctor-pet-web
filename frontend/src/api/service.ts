@@ -43,6 +43,16 @@ const api = {
     const task = toTask(response.data);
     return task;
   },
+  searchTask: async (query: string) => {
+    const searchedTitle = query.normalize().trim().toLowerCase();
+
+    const response = await instance.get("/task");
+    const tasks: Task[] = response.data.map(toTask);
+    const filteredTasks = tasks.filter((task) => 
+      task.title.normalize().trim().toLowerCase().includes(searchedTitle))
+
+    return filteredTasks;
+  },
   createTask: async (data: Task) => {
     const response = await instance.post("/task/create/", data);
     return response.data;

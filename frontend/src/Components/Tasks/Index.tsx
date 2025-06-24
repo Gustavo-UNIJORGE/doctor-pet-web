@@ -9,15 +9,13 @@ function IndexTask() {
     <>
       <title>Serviços</title>
       <h2>Seus Serviços</h2>
-      <ul>
-        <li>
-          <Link to={ROUTES.TASKS.CREATE}>
-            Adicionar Serviço
-            <Plus />
-          </Link>
-        </li>
-        <li>Buscar por Serviço</li>
-      </ul>
+      <div>
+        <Link to={ROUTES.TASKS.CREATE}>
+          Adicionar Serviço
+          <Plus />
+        </Link>
+      </div>
+      
       <ListTask />
     </>
   );
