@@ -32,7 +32,8 @@ def get_task(request: HttpRequest, pk: int):
             'slug' : response.slug,
             'specialty': response.specialty,
             'estimated_time': response.estimated_time,
-            'is_it_home': response.is_it_home
+            'is_it_home': response.is_it_home,
+            'is_active': response.is_active,
 
         }
         return JsonResponse(data)
@@ -64,7 +65,8 @@ def create_task(request: HttpRequest) -> JsonResponse:
                 slug=body.get('slug'),
                 specialty=body.get('specialty'),
                 estimated_time=body.get('estimated_time'),
-                is_it_home=body.get('is_it_home', False)
+                is_it_home=body.get('is_it_home', False),
+                is_active=body.get('is_active', True)
             )
             
             data = {
@@ -72,7 +74,8 @@ def create_task(request: HttpRequest) -> JsonResponse:
                 'slug': task.slug,
                 'specialty': task.specialty,
                 'estimated_time': task.estimated_time,
-                'is_it_home': task.is_it_home
+                'is_it_home': task.is_it_home,
+                'is_active': task.is_active
             }
 
             return JsonResponse({'status': 'success', 'data': data})
@@ -100,7 +103,9 @@ def update_task(request: HttpRequest, pk: int):
                 task.estimated_time = body.get('estimated_time')
             if 'is_it_home' in body:
                 task.is_it_home = body.get('is_it_home', False)
-            
+            if 'is_active' in body:
+                task.is_active = body.get('is_active', False)
+
             # Salva as alterações
             task.save()
             
@@ -111,7 +116,8 @@ def update_task(request: HttpRequest, pk: int):
                 'slug': task.slug,
                 'specialty': task.specialty,
                 'estimated_time': task.estimated_time,
-                'is_it_home': task.is_it_home
+                'is_it_home': task.is_it_home,
+                'is_active': task.is_active
             }
             
             return JsonResponse({'status': 'success', 'data': data})

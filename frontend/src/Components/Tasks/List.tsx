@@ -18,9 +18,16 @@ function ListTask() {
   };
 
   const handleDelete = async (task: Task) => {
-    if (confirm("Você deseja mesmo remover esse Serviço da sua lista?"))
-      await api.updateTask(task.id, task);
-    // desactive item
+    const text = "Você deseja mesmo remover esse Serviço da sua lista?";
+    const message = `Serviço ${task.title} desativado com sucesso`;
+    if (confirm(text)) {
+      try {
+        await api.deActiveTask(task.id, task).then(() => alert(message));
+      } catch (error) {
+        console.error("Error at deactiving data: ", error);
+        alert("Erro ao desativar o registro.");
+      }
+    }
   };
 
   useEffect(() => {
@@ -30,7 +37,7 @@ function ListTask() {
 
         setTasks(data);
       } catch (error) {
-        console.error("Erro fetching data: ", error);
+        console.error("Error at fetching data: ", error);
       } finally {
         setLoading(false);
       }

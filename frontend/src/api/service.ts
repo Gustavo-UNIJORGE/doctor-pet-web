@@ -44,7 +44,9 @@ const instance = axios.create({
 const api = {
   getTasks: async () => {
     const response = await instance.get("/task/");
-    const tasks = response.data.map(toTask);
+    const tasks: Task[] = response.data.map(toTask);
+    // tasks = tasks.filter((tasks) => tasks.is_active);
+
     return tasks as Task[];
   },
   findTask: async (id: number) => {
@@ -57,6 +59,11 @@ const api = {
     return response.data;
   },
   updateTask: async (id: number, data: Task) => {
+    const response = await instance.put(`/task/${id}/edit`, data);
+    return response.data;
+  },
+  deActiveTask: async (id: number, data: Task) => {
+    data.is_active = false;
     const response = await instance.put(`/task/${id}/edit`, data);
     return response.data;
   },
