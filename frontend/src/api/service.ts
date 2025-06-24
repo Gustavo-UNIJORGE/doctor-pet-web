@@ -25,7 +25,7 @@ export function toTask(data): Task {
 }
 
 const api = {
-  getTasks: async () => {
+  getAllTasks: async () => {
     const response = await instance.get("/task/");
     const tasks: Task[] = response.data.map(toTask);
 
@@ -34,8 +34,8 @@ const api = {
   getActiveTasks: async () => {
     const response = await instance.get("/task/");
     const tasks: Task[] = response.data.map(toTask);
-    const activeTasks = tasks.filter((task) => task.is_active)
-    
+    const activeTasks = tasks.filter((task) => task.is_active);
+
     return activeTasks as Task[];
   },
   findTask: async (id: number) => {
@@ -48,8 +48,9 @@ const api = {
 
     const response = await instance.get("/task");
     const tasks: Task[] = response.data.map(toTask);
-    const filteredTasks = tasks.filter((task) => 
-      task.title.normalize().trim().toLowerCase().includes(searchedTitle))
+    const filteredTasks = tasks.filter((task) =>
+      task.title.normalize().trim().toLowerCase().includes(searchedTitle)
+    );
 
     return filteredTasks;
   },

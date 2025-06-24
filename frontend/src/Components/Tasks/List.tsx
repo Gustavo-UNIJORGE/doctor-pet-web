@@ -16,10 +16,26 @@ import ROUTES from "@/routes";
 function ListTask() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
+  const [includeInactive, setIncludeInactive] = useState(false);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [refresh, setRefresh] = useState(false);
 
+  const handleCheck = async () => {
+    setIncludeInactive(!includeInactive);
+    if (includeInactive) {
+      try {
+        const data = await api.getAllTasks();
+
+        setTasks(data);
+      } catch (error) {
+        console.error("Error at searching data: ", error);
+        alert("Erro ao buscar registros");
+      }
+    }
+  };
+
   const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIncludeInactive(true);
     setSearchQuery(e.target.value);
     if (searchQuery.length > 0) {
       try {
@@ -52,7 +68,10 @@ function ListTask() {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const data = await api.getActiveTasks();
+        let data;
+        if (includeInactive) data = await api.getAllTasks();
+        else data = await api.getActiveTasks();
+
         setTasks(data);
       } catch (error) {
         console.error("Error at fetching data: ", error);
@@ -62,7 +81,7 @@ function ListTask() {
     };
 
     loadData();
-  }, [refresh]);
+  }, [refresh, includeInactive]);
 
   if (loading) return <div>Loading...</div>;
 
@@ -80,16 +99,18 @@ function ListTask() {
         </div>
         <div className="inactive-control">
           <span>Inativos</span>
-          <input type="checkbox" />
+          <input type="checkbox" onChange={handleCheck} />
         </div>
       </div>
       <table className="list-table-view">
         <thead>
           <tr>
             <th>ID</th>
+            <th>Especialidade</th>
             <th>Titulo do Serviço</th>
             <th>Tempo Estimado</th>
             <th>É a domicílio?</th>
+            <th>Está Ativo?</th>
             <th>Ações</th>
           </tr>
         </thead>
@@ -97,6 +118,7 @@ function ListTask() {
           {tasks.map((task) => (
             <tr key={task.id}>
               <td>{task.id}</td>
+              <td>{task.specialty}</td>
               <td>
                 <b>{task.title}</b>
               </td>
@@ -104,6 +126,7 @@ function ListTask() {
                 {task.estimated_time.split(":").join("m").replace("m", "h")}
               </td>
               <td>{task.is_it_home ? <Check /> : <X />}</td>
+              <td>{task.is_active ? <Check /> : <X />}</td>
               <td>
                 <div>
                   {/* <Link to={`/task/${task.id}/`}> */}
@@ -141,6 +164,16 @@ function ListTask() {
             <td>
               <Link to={ROUTES.TASKS.CREATE}>
                 <Question />
+              </Link>
+            </td>
+            <td>
+              <Link to={ROUTES.TASKS.CREATE}>
+                <X />
+              </Link>
+            </td>
+            <td>
+              <Link to={ROUTES.TASKS.CREATE}>
+                <X />
               </Link>
             </td>
             <td>
