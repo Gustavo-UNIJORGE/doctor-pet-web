@@ -1,22 +1,14 @@
 import { useEffect, useState } from "react";
 import api from "@/api/service";
 import type { Task } from "@/api/models";
-import { Link, Navigate } from "react-router-dom";
-import { Pencil, Trash2, View, X } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Check, Pencil, Trash2, View, X } from "lucide-react";
 // import ROUTES from "@/routes";
 
 function ListTask() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
-  const [isEditing, setIsEditing] = useState(false);
-  const [selected, setSelected] = useState<Task | null>(null);
   const [refresh, setRefresh] = useState(false);
-
-  const handleEdit = (task: Task) => {
-    setIsEditing(!isEditing);
-    if (isEditing) setSelected(task);
-    else setSelected(null);
-  };
 
   const handleDelete = async (task: Task) => {
     const text = "Você deseja mesmo remover esse Serviço da sua lista?";
@@ -58,6 +50,7 @@ function ListTask() {
           <th>ID</th>
           <th>Titulo do Serviço</th>
           <th>Tempo Estimado</th>
+          <th>É a domicílio?</th>
           <th>Ações</th>
         </tr>
       </thead>
@@ -66,32 +59,28 @@ function ListTask() {
           <tr key={task.id}>
             <td>{task.id}</td>
             <td>
-              <input
-                type="text"
-                value={task.title}
-                placeholder="Titulo do Serviço"
-                disabled={selected !== task}
-              />
+              <b>{task.title}</b>
             </td>
             <td>
-              <input
-                type="time"
-                value={task.estimated_time}
-                disabled={selected !== task}
-              />
+              {task.estimated_time
+                .split(":")
+                .join("m")
+                .replace("m", "h")
+              }
             </td>
+            <td>{task.is_it_home ? <Check /> : <X />}</td>
             <td>
               <div>
-                <button>
-                  <Link to={`/task/${task.id}/`}>
+                <Link to={`/task/${task.id}/`}>
+                  <button>
                     <View />
-                  </Link>
-                </button>
-                {/* Edit Button */}
-                <button onClick={() => handleEdit(task)}>
-                  {selected === task ? <X /> : <Pencil />}
-                </button>
-                {/* Delete Button */}
+                  </button>
+                </Link>
+                <Link to={`/task/${task.id}/edit`}>
+                  <button /* onClick={() => handleEdit(task)} */>
+                    <Pencil />
+                  </button>
+                </Link>
                 <button onClick={() => handleDelete(task)}>
                   <Trash2 />
                 </button>

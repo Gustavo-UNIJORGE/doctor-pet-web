@@ -2,10 +2,11 @@ import type { Task } from "@/api/models";
 import api, { toTask } from "@/api/service";
 import { useEffect, useState } from "react";
 import NotFound from "../Shared/NotFound";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import slugify from "@/utils";
 
 function EditTask() {
+  const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const [wasNotFound, setNotFound] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -24,6 +25,12 @@ function EditTask() {
         ...(name === "title" && { slug: slugify(value) }),
       };
     });
+  };
+
+  const handleCancel = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    navigate(-1);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -124,7 +131,7 @@ function EditTask() {
             </div>
           </fieldset>
           <div>
-            <button type="reset">Cancelar</button>
+            <button onClick={handleCancel}>Cancelar</button>
             <button type="submit">Salvar</button>
           </div>
         </form>
