@@ -12,4 +12,5 @@ export interface Task {
   specialty: string;
   estimated_time: string;
   is_it_home: boolean;
+  is_active: boolean;
 }

@@ -85,10 +85,8 @@ def create_task(request: HttpRequest) -> JsonResponse:
 def update_task(request: HttpRequest, pk: int):
     if request.method == 'PUT':
         try:
-            # Carrega os dados do corpo da requisição
             body = json.loads(request.body)
             
-            # Obtém a tarefa existente
             task = Task.objects.get(pk=pk)
             
             # Atualiza os campos permitidos

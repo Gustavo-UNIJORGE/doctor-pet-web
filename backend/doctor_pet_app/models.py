@@ -32,6 +32,11 @@ class Task(models.Model):
         verbose_name='É à Domicilio?',
     ) 
 
+    is_active = models.BooleanField(
+        verbose_name="Está Ativo?",
+        default=True
+    )
+
     def __str__(self):
         return self.title
 
@@ -71,6 +76,10 @@ class Attendance(models.Model):
     )
     end_time = models.DateTimeField(
         verbose_name='Horário de Término do Serviço'
+    )
+    is_active = models.BooleanField(
+        verbose_name="Está Ativo?",
+        default=True
     )
 
     @property

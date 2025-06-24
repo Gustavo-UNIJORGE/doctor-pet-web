@@ -27,6 +27,7 @@ export function toTask(data): Task {
     specialty: data.specialty,
     estimated_time: data.estimated_time,
     is_it_home: data.is_it_home,
+    is_active: data.is_active,
   };
 }
 
