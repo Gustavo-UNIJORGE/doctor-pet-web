@@ -33,8 +33,7 @@ function ListTask() {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const data = await api.getTasks();
-
+        const data = await api.getActiveTasks();
         setTasks(data);
       } catch (error) {
         console.error("Error at fetching data: ", error);
