@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "@/api/service";
 import type { Task } from "@/api/models";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { Pencil, Trash2, View, X } from "lucide-react";
 // import ROUTES from "@/routes";
 
@@ -10,6 +10,7 @@ function ListTask() {
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
   const [selected, setSelected] = useState<Task | null>(null);
+  const [refresh, setRefresh] = useState(false);
 
   const handleEdit = (task: Task) => {
     setIsEditing(!isEditing);
@@ -26,6 +27,9 @@ function ListTask() {
       } catch (error) {
         console.error("Error at deactiving data: ", error);
         alert("Erro ao desativar o registro.");
+      } finally {
+        // Atualiza a lista de registros para o usuário
+        setRefresh(true);
       }
     }
   };
@@ -43,7 +47,7 @@ function ListTask() {
     };
 
     loadData();
-  }, []);
+  }, [refresh]);
 
   if (loading) return <div>Loading...</div>;
 
